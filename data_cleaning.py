@@ -15,7 +15,7 @@ df = pd.read_csv('Student Mental health.csv')
  
 # 1. Deal with missing values
 df['Age'].isnull()
-df['Age'] = df['Age'].fillna(value = df['Age'].mean().ceil())
+df['Age'] = df['Age'].fillna(value = round(df['Age'].mean()))
 # 2. Is there something that needs to be done with timestamp?
 # Converted String into datetime object and made 3 new columns
 type(df['Timestamp'].iloc[0])
@@ -28,8 +28,6 @@ df['Day of Week'] = df['Day of Week'].map(dmap)
 
 
 # 3. Deal with column names
-df.info()
-df.columns
 df.rename(columns = {'Choose your gender': 'Gender', 'What is your course?': 'Course', 
                      'Your current year of Study': 'Year', 'What is your CGPA?':'CGPA',
                      'Do you have Depression?': 'Depression', 'Do you have Anxiety?': 'Anxiety',
@@ -63,13 +61,13 @@ df['C'] = df['CGPA Rank'].apply(lambda x: 1 if '2.49' in x else 0)
 df['D'] = df['CGPA Rank'].apply(lambda x: 1 if '1.99' in x else 0)
 
 # 7. Encode Last 4 columns to numeric
- df['Marital status'] = df['Marital status'].map({'Yes': 1, 'No': 0})
- df['Depression'] = df['Depression'].map({'Yes': 1, 'No': 0})
- df['Anxiety'] = df['Anxiety'].map({'Yes': 1, 'No': 0})
- df['Panic Attack'] = df['Panic Attack'].map({'Yes': 1, 'No': 0})
- df['Seeked Help'] = df['Seeked Help'].map({'Yes': 1, 'No': 0})
+df['Marital status'] = df['Marital status'].map({'Yes': 1, 'No': 0})
+df['Depression'] = df['Depression'].map({'Yes': 1, 'No': 0})
+df['Anxiety'] = df['Anxiety'].map({'Yes': 1, 'No': 0})
+df['Panic Attack'] = df['Panic Attack'].map({'Yes': 1, 'No': 0})
+df['Seeked Help'] = df['Seeked Help'].map({'Yes': 1, 'No': 0})
  
 # 8. Convert Gender into Binary 
 df['Gender'] = df['Gender'].map({'Female':0 , 'Male': 1})
 
-df.to_csv('student_mental_health_cleaned.csv', index = False)
+#df.to_csv('student_mental_health_cleaned.csv', index = False)
