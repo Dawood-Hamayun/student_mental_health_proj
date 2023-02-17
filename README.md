@@ -56,6 +56,7 @@ Countplot(), Barplot(), Heatmap().
 
 ### Functions Used:
 read_csv(), head(), info(), describe(), apply(), corr(), value_counts(), groupby(), size()
+
 get_values(), get_cat() -> User Defined
 
 
