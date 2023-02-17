@@ -16,7 +16,6 @@ df = pd.read_csv('Student Mental health.csv')
 # 1. Deal with missing values
 df['Age'].isnull()
 df['Age'] = df['Age'].fillna(value = df['Age'].mean().ceil())
-
 # 2. Is there something that needs to be done with timestamp?
 # Converted String into datetime object and made 3 new columns
 type(df['Timestamp'].iloc[0])
@@ -42,9 +41,14 @@ df.rename(columns = {'Choose your gender': 'Gender', 'What is your course?': 'Co
 # 4. Deal with course column (Lower case, Categorize into something general)
 df['Course'] = df['Course'].apply(lambda x: x.lower())
 df['Course'].unique()
-df['Course'] = df['Course'].apply( lambda x: 'Science' if 'engineering' or 'bit' or 'mathematics' or
-                                 'bcs' or 'psychology' or 'enm' or 'marine science' or
-                                 'engine' or 'biomedical science' or 'it' or 'engine' or 'mhsc' or 'biotechnology' in x else 'Arts'})
+
+df['Course'] = df['Course'].replace(['engineering', 'bit', 'mathemathics', 'bcs', 'psychology'
+                                     , 'enm', 'marine science', 'engine', 'engin', 
+                                     'biomedical science', 'it', 'mhsc', 'biotechnology'], 'Science')
+df['Course'][df['Course'] != 'Science']   = 'Arts'      
+df['Science'] = df['Course'].apply(lambda x: 1 if 'Science' in x else 0)
+df['Arts'] = df['Course'].apply(lambda x: 1 if 'Arts' in x else 0)
+
 # 5. Year column (same lower case) (Remove word 'year' in values)
 df['Year'] = df['Year'].apply(lambda x: x.lower().split(' ')[1])
 
@@ -67,3 +71,5 @@ df['D'] = df['CGPA Rank'].apply(lambda x: 1 if '1.99' in x else 0)
  
 # 8. Convert Gender into Binary 
 df['Gender'] = df['Gender'].map({'Female':0 , 'Male': 1})
+
+df.to_csv('student_mental_health_cleaned.csv', index = False)
