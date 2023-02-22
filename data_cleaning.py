@@ -70,4 +70,4 @@ df['Seeked Help'] = df['Seeked Help'].map({'Yes': 1, 'No': 0})
 # 8. Convert Gender into Binary 
 df['Gender'] = df['Gender'].map({'Female':0 , 'Male': 1})
 
-df.to_csv('student_mental_health_cleaned.csv', index = False)
+#df.to_csv('student_mental_health_cleaned.csv', index = False)
